@@ -295,6 +295,97 @@ def _get_info(mctx):
 
     return toolchains, packages
 
+def _yocto_sdk_repository_impl(repository_ctx):
+    """Repository rule implementation for extracting Yocto SDK shell archives.
+
+    Args:
+        repository_ctx: The repository context.
+    """
+    urls = repository_ctx.attr.urls
+    sha256 = repository_ctx.attr.sha256
+    build_file = repository_ctx.attr.build_file
+    strip_prefix = repository_ctx.attr.strip_prefix
+
+    # Download the shell script
+    repository_ctx.download_and_extract(
+        url = urls,
+        sha256 = sha256,
+        strip_prefix = strip_prefix,
+    )
+
+    # Find the sh file in the downloaded content after extraction
+    filename = None
+    for file in repository_ctx.execute(["find", ".", "-name", "*.sh"], quiet = True).stdout.splitlines():
+        filename = file.strip()
+        break
+
+    # Execute the shell script with -y and -d flags
+    result = repository_ctx.execute(
+        ["bash", filename, "-y", "-d", "."],
+        quiet = True,
+    )
+
+    if result.return_code != 0:
+        fail("Failed to extract Yocto SDK: {}".format(result.stderr))
+
+    # Copy the build file
+    repository_ctx.symlink(build_file, "BUILD")
+
+_yocto_sdk_repository = repository_rule(
+    implementation = _yocto_sdk_repository_impl,
+    attrs = {
+        "urls": attr.string_list(mandatory = True, doc = "URLs to the Yocto SDK shell script"),
+        "sha256": attr.string(mandatory = True, doc = "SHA256 checksum of the shell script"),
+        "build_file": attr.label(mandatory = True, doc = "Path to the BUILD file"),
+        "strip_prefix": attr.string(mandatory = False, default = "", doc = "Strip prefix from the extracted files"),
+    },
+    doc = "Repository rule for extracting Yocto SDK shell archives",
+)
+
+def _extract_yocto_sdk(archive_info):
+    """Extract Yocto SDK shell archive with toolchain and sysroot.
+
+    Args:
+        archive_info: A dict containing archive information including url, name, build_file, and sha256.
+    """
+    _yocto_sdk_repository(
+        name = archive_info["name"],
+        urls = [archive_info["url"]],
+        build_file = archive_info["build_file"],
+        sha256 = archive_info["sha256"],
+        strip_prefix = archive_info["strip_prefix"],
+    )
+
+def _toolchain_setup(archive_info, toolchains):
+    """Setup archive with appropriate extraction method based on toolchain type.
+
+    Args:
+        archive_info: A dict containing archive information.
+        toolchains: A list of toolchain dicts to check for Yocto ecosystem.
+    """
+
+    # Check if any toolchain linked to this archive is using Yocto ecosystem
+    is_yocto = False
+    for toolchain in toolchains:
+        # Match archive to toolchain by package naming convention
+        expected_pkg_name = "{}_pkg".format(toolchain["name"])
+        if archive_info["name"] == expected_pkg_name and toolchain["tc_runtime_ecosystem"] == "yocto":
+            is_yocto = True
+            break
+
+    if is_yocto:
+        # Use custom Yocto SDK extraction
+        _extract_yocto_sdk(archive_info)
+    else:
+        # Use standard http_archive for other toolchains
+        http_archive(
+            name = archive_info["name"],
+            urls = [archive_info["url"]],
+            build_file = archive_info["build_file"],
+            sha256 = archive_info["sha256"],
+            strip_prefix = archive_info["strip_prefix"],
+        )
+
 def _impl(mctx):
     """Extracts information about toolchain and instantiates nessesary rules for toolchain declaration.
 
@@ -304,13 +395,7 @@ def _impl(mctx):
     """
     toolchains, archives = _get_info(mctx)
     for archive_info in archives:
-        http_archive(
-            name = archive_info["name"],
-            urls = [archive_info["url"]],
-            build_file = archive_info["build_file"],
-            sha256 = archive_info["sha256"],
-            strip_prefix = archive_info["strip_prefix"],
-        )
+        _toolchain_setup(archive_info, toolchains)
 
     for toolchain_info in toolchains:
         gcc_toolchain(
