@@ -58,6 +58,11 @@ _attrs_tc = {
         default = [],
         doc = "List of additional flags to be passed to compiler.",
     ),
+    "extra_hardening_flags": attr.string_list(
+        mandatory = False,
+        default = [],
+        doc = "List of additional hardening flags (applied only in non-debug/non-sanitizer builds).",
+    ),
     "extra_cxx_compile_flags": attr.string_list(
         mandatory = False,
         default = [],
@@ -190,6 +195,7 @@ def _get_toolchains(tags):
             "tc_cpu": tag.target_cpu,
             "tc_extra_c_compile_flags": tag.extra_c_compile_flags,
             "tc_extra_compile_flags": tag.extra_compile_flags,
+            "tc_extra_hardening_flags": tag.extra_hardening_flags,
             "tc_extra_cxx_compile_flags": tag.extra_cxx_compile_flags,
             "tc_extra_link_flags": tag.extra_link_flags,
             "tc_license_info_url": tag.license_info_url,
@@ -226,6 +232,8 @@ def _create_and_link_sdp(toolchain_info):
     # TODO: Put this in separate function so that we can easy extend it (if needed).
     if "extra_compile_flags" in matrix and not toolchain_info["tc_extra_compile_flags"]:
         toolchain_info["tc_extra_compile_flags"] = matrix["extra_compile_flags"]
+    if "extra_hardening_flags" in matrix and not toolchain_info["tc_extra_hardening_flags"]:
+        toolchain_info["tc_extra_hardening_flags"] = matrix["extra_hardening_flags"]
     if "extra_c_compile_flags" in matrix and not toolchain_info["tc_extra_c_compile_flags"]:
         toolchain_info["tc_extra_c_compile_flags"] = matrix["extra_c_compile_flags"]
     if "extra_cxx_compile_flags" in matrix and not toolchain_info["tc_extra_cxx_compile_flags"]:
@@ -403,6 +411,7 @@ def _impl(mctx):
         gcc_toolchain(
             name = toolchain_info["name"],
             extra_compile_flags = toolchain_info["tc_extra_compile_flags"],
+            extra_hardening_flags = toolchain_info["tc_extra_hardening_flags"],
             extra_c_compile_flags = toolchain_info["tc_extra_c_compile_flags"],
             extra_cxx_compile_flags = toolchain_info["tc_extra_cxx_compile_flags"],
             extra_link_flags = toolchain_info["tc_extra_link_flags"],

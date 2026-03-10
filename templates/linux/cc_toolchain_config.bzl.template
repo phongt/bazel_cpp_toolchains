@@ -528,6 +528,24 @@ def _impl(ctx):
         ],
     )
 
+    extra_hardening_flags = %{extra_hardening_flags}
+    extra_hardening_flags_feature = feature(
+        name = "extra_hardening_flags",
+        enabled = %{extra_hardening_flags_switch},
+        implies = ["default_compile_flags"],
+        flag_sets = [
+            flag_set(
+                actions = all_compile_actions,
+                flag_groups = extra_hardening_flags,
+                with_features = [
+                    with_feature_set(
+                        not_features = ["dbg", "asan", "lsan", "tsan", "ubsan"],
+                    ),
+                ],
+            ),
+        ],
+    )
+
     extra_c_compile_flags = %{extra_c_compile_flags}
     extra_c_compile_flags_feature = feature(
         name = "extra_c_compile_flags",
@@ -633,6 +651,7 @@ def _impl(ctx):
         all_wall_warnings_feature,
         warnings_as_errors_feature,
         extra_compile_flags_feature,
+        extra_hardening_flags_feature,
         extra_c_compile_flags_feature,
         extra_cxx_compile_flags_feature,
         extra_link_flags_feature,

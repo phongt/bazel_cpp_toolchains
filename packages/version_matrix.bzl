@@ -197,6 +197,9 @@ VERSION_MATRIX = {
             "-mtune=core2",
             "-msse3",
             "-mfpmath=sse",
+        ],
+        "extra_hardening_flags": [
+            "-O2",
             "-fstack-protector-strong",
             "-D_FORTIFY_SOURCE=2",
             "-Wformat",

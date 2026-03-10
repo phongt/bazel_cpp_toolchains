@@ -154,6 +154,7 @@ def _impl(rctx):
         return [flag.replace("%{toolchain_pkg}%", canonical_pkg_name) for flag in flags]
 
     extra_compile_flags = get_flag_groups(replace_placeholder(rctx.attr.extra_compile_flags))
+    extra_hardening_flags = get_flag_groups(replace_placeholder(rctx.attr.extra_hardening_flags))
     extra_c_compile_flags = get_flag_groups(replace_placeholder(rctx.attr.extra_c_compile_flags))
     extra_cxx_compile_flags = get_flag_groups(replace_placeholder(rctx.attr.extra_cxx_compile_flags))
     extra_link_flags = get_flag_groups(replace_placeholder(rctx.attr.extra_link_flags))
@@ -163,6 +164,8 @@ def _impl(rctx):
         "%{extra_c_compile_flags}": extra_c_compile_flags,
         "%{extra_compile_flags_switch}": "True" if len(rctx.attr.extra_compile_flags) else "False",
         "%{extra_compile_flags}": extra_compile_flags,
+        "%{extra_hardening_flags_switch}": "True" if len(rctx.attr.extra_hardening_flags) else "False",
+        "%{extra_hardening_flags}": extra_hardening_flags,
         "%{extra_cxx_compile_flags_switch}": "True" if len(rctx.attr.extra_cxx_compile_flags) else "False",
         "%{extra_cxx_compile_flags}": extra_cxx_compile_flags,
         "%{extra_link_flags_switch}": "True" if len(rctx.attr.extra_link_flags) else "False",
@@ -221,6 +224,7 @@ gcc_toolchain = repository_rule(
         ),
         "extra_c_compile_flags": attr.string_list(doc = "Extra/Additional C-specific compile flags."),
         "extra_compile_flags": attr.string_list(doc = "Extra/Additional compile flags."),
+        "extra_hardening_flags": attr.string_list(doc = "Extra/Additional hardening flags (excluded in debug/sanitizer builds)."),
         "extra_cxx_compile_flags": attr.string_list(doc = "Extra/Additional C++-specific compile flags."),
         "extra_link_flags": attr.string_list(doc = "Extra/Additional link flags."),
         "gcc_version": attr.string(doc = "GCC version string"),
