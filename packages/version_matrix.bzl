@@ -112,9 +112,9 @@ VERSION_MATRIX = {
             "-lrt",
             "-lstdc++",
         ],
-        "sha256": "12f07616f80495da78265022e520a77cdb96d9b4916d06a573f28c84e2f02ee8",
+        "sha256": "caa4d8c12fb6a5ba7267a25a6809e33c4bbcad7e04d985add253ea330ca5abb5",
         "strip_prefix": "yocto-sdk-5.0.15-qemuarm64",
-        "url": "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-12/yocto-sdk-5.0.15-qemuarm64.tar.gz",
+        "url": "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-14/yocto-sdk-5.0.15-qemuarm64.tar.gz",
         "gcc_version": "13.4.0",
     },
     "x86_64-linux-gcc_12.2.0": {
@@ -275,9 +275,9 @@ VERSION_MATRIX = {
             "-lrt",
             "-lstdc++",
         ],
-        "sha256": "f8663e044bb2a75c6c97dc879981c79bf0ae775a5342f69363dc47a5fba15b33",
+        "sha256": "2d6f4d28e19bcf3a6281b40345d81812aa480c8b4702f6acbaf43a2dc84514c9",
         "strip_prefix": "yocto-sdk-5.0.15-qemux86-64",
-        "url": "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-10/yocto-sdk-5.0.15-qemux86-64.tar.gz",
+        "url": "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-14/yocto-sdk-5.0.15-qemux86-64.tar.gz",
         "gcc_version": "13.4.0",
     },
 }
