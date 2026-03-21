@@ -503,8 +503,6 @@
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/rules_shell/0.4.1/MODULE.bazel": "not found",
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/rules_shell/0.5.0/MODULE.bazel": "not found",
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/rules_shell/0.6.1/MODULE.bazel": "not found",
-    "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/score_bazel_platforms/0.1.1/MODULE.bazel": "236e5bdff6f2d6de6f96cc4f5f4b1bf2cd6137547ce279668a2dd4c54cd4236c",
-    "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/score_bazel_platforms/0.1.1/source.json": "0af1a0f0346ba3218220bac8c267d5b82740d295b53e670f33acccb3c8968589",
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/score_cr_checker/0.2.2/MODULE.bazel": "dc36d9c35543db918c3fb5b93a8e684431f56c7c784cf2a1b90f35802a373c98",
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/score_cr_checker/0.3.1/MODULE.bazel": "f49e037d7fbc0b2a8b2734fc6b47334e8cc8589ca7a5aa0f3ccca85cc5f79fac",
     "https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/modules/score_dash_license_checker/0.1.1/MODULE.bazel": "76681dbd2d45b5c540869a2337174086c56c54953aab1d02cd878b59d31d13a5",
@@ -1044,8 +1042,8 @@
     },
     "@@score_bazel_cpp_toolchains+//extensions:gcc.bzl%gcc": {
       "general": {
-        "bzlTransitiveDigest": "NgSSI3Z2Tp2MR9xVR97IgNx7nuKEeeKGBJwH7YvG+YE=",
-        "usagesDigest": "RizhCPQB+WoV0RjCPAlGIY/zqeVSxIzHUAWi8W4qV34=",
+        "bzlTransitiveDigest": "1jmHwMiu1t6t3NEHZofcAsi0FZcRLiIJ7JjyFqIWO98=",
+        "usagesDigest": "BlRP+HAtfKoVJMKRRyc1Sbqu1Jo2RcpFWNni3EHzB8c=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1138,10 +1136,33 @@
               "strip_prefix": "fastdev-sdk-ubuntu-ebclfsa-ebcl-qemuarm64"
             }
           },
+          "score_x86_64_yocto_toolchain_pkg": {
+            "repoRuleId": "@@score_bazel_cpp_toolchains+//extensions:gcc.bzl%_yocto_sdk_repository",
+            "attributes": {
+              "urls": [
+                "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-14/yocto-sdk-5.0.15-qemux86-64.tar.gz"
+              ],
+              "build_file": "@@score_bazel_cpp_toolchains+//packages/linux/x86_64/yocto/5.0.15:yocto.BUILD",
+              "sha256": "2d6f4d28e19bcf3a6281b40345d81812aa480c8b4702f6acbaf43a2dc84514c9",
+              "strip_prefix": "yocto-sdk-5.0.15-qemux86-64"
+            }
+          },
+          "score_aarch64_yocto_toolchain_pkg": {
+            "repoRuleId": "@@score_bazel_cpp_toolchains+//extensions:gcc.bzl%_yocto_sdk_repository",
+            "attributes": {
+              "urls": [
+                "https://github.com/phongt/yocto-sdk/releases/download/yocto-sdk-5.0.15-14/yocto-sdk-5.0.15-qemuarm64.tar.gz"
+              ],
+              "build_file": "@@score_bazel_cpp_toolchains+//packages/linux/aarch64/yocto/5.0.15:yocto.BUILD",
+              "sha256": "caa4d8c12fb6a5ba7267a25a6809e33c4bbcad7e04d985add253ea330ca5abb5",
+              "strip_prefix": "yocto-sdk-5.0.15-qemuarm64"
+            }
+          },
           "score_gcc_toolchain_bp": {
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [],
@@ -1166,6 +1187,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [],
@@ -1190,6 +1212,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [],
@@ -1214,6 +1237,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [
@@ -1240,6 +1264,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [],
@@ -1264,6 +1289,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [],
               "extra_cxx_compile_flags": [],
               "extra_link_flags": [],
@@ -1288,6 +1314,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [
                 "-nostdinc",
                 "-isystem",
@@ -1348,6 +1375,7 @@
             "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
             "attributes": {
               "extra_compile_flags": [],
+              "extra_hardening_flags": [],
               "extra_c_compile_flags": [
                 "-nostdinc",
                 "-isystem",
@@ -1412,6 +1440,121 @@
               "tc_system_toolchain": false,
               "tc_runtime_ecosystem": "ebclfsa",
               "gcc_version": "",
+              "cc_toolchain_config": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_config.bzl.template",
+              "cc_toolchain_flags": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_flags.bzl.template",
+              "use_base_constraints_only": false
+            }
+          },
+          "score_x86_64_yocto_toolchain": {
+            "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
+            "attributes": {
+              "extra_compile_flags": [
+                "-m64",
+                "-march=core2",
+                "-mtune=core2",
+                "-msse3",
+                "-mfpmath=sse"
+              ],
+              "extra_hardening_flags": [
+                "-O2",
+                "-fstack-protector-strong",
+                "-D_FORTIFY_SOURCE=2",
+                "-Wformat",
+                "-Wformat-security",
+                "-Werror=format-security"
+              ],
+              "extra_c_compile_flags": [
+                "-nostdinc",
+                "-feliminate-unused-debug-types",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/core2-64-poky-linux/usr/include"
+              ],
+              "extra_cxx_compile_flags": [
+                "-nostdinc++",
+                "-feliminate-unused-debug-types",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/core2-64-poky-linux/usr/include/c++/13.4.0",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/core2-64-poky-linux/usr/include/c++/13.4.0/x86_64-poky-linux"
+              ],
+              "extra_link_flags": [
+                "-Wl,-O1",
+                "-Wl,--hash-style=gnu",
+                "-Wl,--as-needed",
+                "-Wl,-z,relro,-z,now",
+                "-lm",
+                "-ldl",
+                "-lrt",
+                "-lstdc++"
+              ],
+              "license_info_variable": "",
+              "license_info_value": "",
+              "license_path": "/opt/score_qnx/license/licenses",
+              "sdk_version": "",
+              "sdp_version": "",
+              "tc_cpu": "x86_64",
+              "tc_identifier": "",
+              "tc_os": "linux",
+              "tc_pkg_repo": "score_x86_64_yocto_toolchain_pkg",
+              "tc_system_toolchain": false,
+              "tc_runtime_ecosystem": "yocto",
+              "gcc_version": "13.4.0",
+              "cc_toolchain_config": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_config.bzl.template",
+              "cc_toolchain_flags": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_flags.bzl.template",
+              "use_base_constraints_only": false
+            }
+          },
+          "score_aarch64_yocto_toolchain": {
+            "repoRuleId": "@@score_bazel_cpp_toolchains+//rules:gcc.bzl%gcc_toolchain",
+            "attributes": {
+              "extra_compile_flags": [
+                "-mcpu=cortex-a57+crc",
+                "-mbranch-protection=standard"
+              ],
+              "extra_hardening_flags": [
+                "-O2",
+                "-fstack-protector-strong",
+                "-D_FORTIFY_SOURCE=2",
+                "-Wformat",
+                "-Wformat-security",
+                "-Werror=format-security"
+              ],
+              "extra_c_compile_flags": [
+                "-nostdinc",
+                "-feliminate-unused-debug-types",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/cortexa57-poky-linux/usr/include"
+              ],
+              "extra_cxx_compile_flags": [
+                "-nostdinc++",
+                "-feliminate-unused-debug-types",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/cortexa57-poky-linux/usr/include/c++/13.4.0",
+                "-isystem",
+                "external/%{toolchain_pkg}%/sysroots/cortexa57-poky-linux/usr/include/c++/13.4.0/aarch64-poky-linux"
+              ],
+              "extra_link_flags": [
+                "-Wl,-O1",
+                "-Wl,--hash-style=gnu",
+                "-Wl,--as-needed",
+                "-Wl,-z,relro,-z,now",
+                "-lm",
+                "-ldl",
+                "-lrt",
+                "-lstdc++"
+              ],
+              "license_info_variable": "",
+              "license_info_value": "",
+              "license_path": "/opt/score_qnx/license/licenses",
+              "sdk_version": "",
+              "sdp_version": "",
+              "tc_cpu": "aarch64",
+              "tc_identifier": "",
+              "tc_os": "linux",
+              "tc_pkg_repo": "score_aarch64_yocto_toolchain_pkg",
+              "tc_system_toolchain": false,
+              "tc_runtime_ecosystem": "yocto",
+              "gcc_version": "13.4.0",
               "cc_toolchain_config": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_config.bzl.template",
               "cc_toolchain_flags": "@@score_bazel_cpp_toolchains+//templates/linux:cc_toolchain_flags.bzl.template",
               "use_base_constraints_only": false
