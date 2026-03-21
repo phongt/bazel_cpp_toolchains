@@ -56,6 +56,11 @@ filegroup(
 )
 
 filegroup(
+    name = "ld_library_paths",
+    srcs = [],
+)
+
+filegroup(
     name = "cxx_builtin_include_directories",
     srcs = [
         "sysroots/core2-64-poky-linux/usr/include/c++/13.4.0",
