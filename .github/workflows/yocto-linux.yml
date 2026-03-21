@@ -36,9 +36,9 @@ jobs:
           disk-cache: ${{ github.job }}
           repository-cache: true
           cache-save: ${{ github.event_name == 'push' }}
-      - name: Bazel Build (x86_64)
+      - name: Bazel Build (x86_64_linux_yocto)
         run: |
-          bazel build --config target_config_5 -- //...
-      - name: Bazel Build (aarch64)
+          bazel build --config x86_64_linux_yocto -- //...
+      - name: Bazel Build (aarch64_linux_yocto)
         run: |
-          bazel build --config target_config_6 -- //...
+          bazel build --config aarch64_linux_yocto -- //...
